@@ -20,8 +20,8 @@ dates = np.reshape(dates,(len(dates),1))# converting to matrix of n X 1
 answer = prices[29]
 prices = prices[30:60]
 svr_rbf = SVR(kernel= 'rbf', C= 1e3, gamma= 0.1) # defining the support vector regression models
-svr_lin = SVR(kernel= 'linear', C= 1e3)
-svr_poly = SVR(kernel= 'poly', C= 1e3, degree= 2)
+svr_lin = SVR(kernel= 'linear', C= 1e3, gamma = 'auto')
+svr_poly = SVR(kernel= 'poly', C= 1e3, degree= 2, gamma = 'auto')
 svr_rbf.fit(dates, prices) # fitting the data points in the models
 svr_lin.fit(dates, prices)
 svr_poly.fit(dates, prices)
@@ -34,6 +34,6 @@ plt.ylabel('Price')
 plt.title('Support Vector Regression')
 plt.legend()
 plt.show()
-rbf_p,linear_p,poly_p = svr_rbf.predict(31)[0], svr_lin.predict(31)[0], svr_poly.predict(31)[0]
+rbf_p,linear_p,poly_p = svr_rbf.predict(np.array(31).reshape(-1,1))[0], svr_lin.predict(np.array(31).reshape(-1,1))[0], svr_poly.predict(np.array(31).reshape(-1,1))[0]
 print(str(rbf_p) + ',' + str(linear_p) + ',' + ',' + str(poly_p))
 print(answer)
